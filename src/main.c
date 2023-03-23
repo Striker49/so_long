@@ -6,7 +6,7 @@
 /*   By: seroy <seroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:53:09 by seroy             #+#    #+#             */
-/*   Updated: 2023/03/20 17:18:20 by seroy            ###   ########.fr       */
+/*   Updated: 2023/03/23 15:35:03 by seroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,14 +121,12 @@ int	main(int argc, char **argv)
 	int			i;
 	char		*rd;
 	t_olivier	oli;
-	t_list   	lst;
 
 	i = 0;
 	fd = open(argv[1], O_RDONLY);
 	while(fd)
 	{
 		rd = get_next_line(fd);
-		// printf("%s", rd);
 		if (rd == NULL)
 			break;
 		i++;
@@ -145,12 +143,10 @@ int	main(int argc, char **argv)
 		if (rd == NULL)
 			break;
 		oli.map[i] = rd;
-		// free (rd);
 		i++;
 	}
 	free (rd);
 	close(fd);
-	// printf("%s", oli.map[0]);
 	printf("%d", ft_valid(oli.map));
 	return (0);
 }
