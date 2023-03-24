@@ -16,7 +16,9 @@ typedef struct s_olivier
 int     ft_valid(char **map);
 int     ft_strchr_map(char **s, int c);
 int	    ft_height(char **map);
-int	ft_strchr_x(char **s, int c);
-int	ft_strchr_y(char **s, int c);
+int		ft_strchr_x(char **s, int c);
+int		ft_strchr_y(char **s, int c);
+void	ft_free_map(char **s);
 
+int	errmessage(char *s);
 #endif

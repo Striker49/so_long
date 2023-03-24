@@ -79,8 +79,14 @@ char    **ft_copy_map(char **map)
 	char	**map2;
 
 	i = 0;
-	ilen = ft_height(map);
+	ilen = ft_height(map) - 1;
 	map2 = ft_calloc((ilen + 1), sizeof(*map2));
+	// if (!map2)
+	// {
+	// 	free(map2);
+	// 	map2 = NULL;
+	// 	return (0);
+	// }
 	while (map[i])
 	{
 		map2[i] = map[i];
@@ -127,8 +133,11 @@ int ft_path(char **map, t_olivier oli)
 	x_pos = ft_strchr_x(map, 'P');
 	y_pos = ft_strchr_y(map, 'P');
 	map2 = ft_copy_map(map);
+	if (!map2)
+		return (0);
 	if (oli.collectible != flood_fill(map2, x_pos, y_pos, V, N))
 		return (0);
+	free(map2);
 	return (1);
 }
 
@@ -137,7 +146,7 @@ int ft_valid(char **map)
 	t_olivier oli;
 
 	if (!ft_ecp(map, &oli))
-		return (0);
+		return (errmessage("allô"));
 	if (!is_rectangular(map))
 		return (0);
 	if (!ft_walls(map))

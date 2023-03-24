@@ -6,7 +6,7 @@
 /*   By: seroy <seroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:49:57 by seroy             #+#    #+#             */
-/*   Updated: 2023/03/23 10:33:51 by seroy            ###   ########.fr       */
+/*   Updated: 2023/03/24 17:35:39 by seroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,4 +95,27 @@ int		ft_height(char **map)
 	while (map[i])
 		i++;
 	return (i);
+}
+
+void	ft_free_map(char **s)
+{
+	int i;
+
+	i = 0;
+	if (s)
+	{
+		while (s[i])
+		{
+			free(s[i]);
+			i++;
+		}
+		free(s);
+	}
+	return;
+}
+
+int	errmessage(char *s)
+{
+	perror(s);
+	return(0);
 }
