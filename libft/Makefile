@@ -13,29 +13,66 @@
 
 #Library Name ----------------------------
 
-NAME = so_long
+NAME = libft.a
 
 #Dependencies -----------------------------
-
-LIBFT = libft
 
 #Command variables ------------------------
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
+AR = ar -rc
 MK = mkdir -p
 RM = rm -rf
-USER = $(shell whoami)
-MLX42 = -framework Cocoa -framework OpenGL -framework IOKit MLX42/build/libmlx42.a -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib"
 
 #Sources directories
-
 INCDIR = inc
 SRCDIR = src
-LIBFT_A = libft.a
-LIBFTDIR = libft
-LIBFT = $(addprefix $(LIBFTDIR)/, $(LIBFT_A))
-SRC = parsing.c utils.c	main.c window.c 
+SRC = ft_atoi.c\
+	ft_bzero.c\
+	ft_calloc.c\
+	ft_isalnum.c\
+	ft_isalpha.c\
+	ft_isascii.c\
+	ft_isdigit.c\
+	ft_isprint.c\
+	ft_itoa.c\
+	ft_lstadd_back.c\
+	ft_lstadd_front.c\
+	ft_lstclear.c\
+	ft_lstdelone.c\
+	ft_lstiter.c\
+	ft_lstlast.c\
+	ft_lstmap.c\
+	ft_lstnew.c\
+	ft_lstsize.c\
+	ft_memchr.c\
+	ft_memcmp.c\
+	ft_memcpy.c\
+	ft_memmove.c\
+	ft_memset.c\
+	ft_putchar_fd.c\
+	ft_putendl_fd.c\
+	ft_putnbr_fd.c\
+	ft_putstr_fd.c\
+	ft_split.c\
+	ft_strchr.c\
+	ft_strdup.c\
+	ft_striteri.c\
+	ft_strjoin.c\
+	ft_strlcat.c\
+	ft_strlcpy.c\
+	ft_strlen.c\
+	ft_strmapi.c\
+	ft_strncmp.c\
+	ft_strnstr.c\
+	ft_strrchr.c\
+	ft_strtrim.c\
+	ft_substr.c\
+	ft_tolower.c\
+	ft_toupper.c\
+	get_next_line.c\
+	get_next_line_utils.c
 		
 VPATH = ${SRCDIR}
 
@@ -46,23 +83,20 @@ OBJDIR = obj
 OBJS = $(addprefix ${OBJDIR}/, ${SRC:%.c=%.o})
 
 ${OBJDIR}/%.o : %.c
-	${CC} ${FLAGS} -I${INCDIR} -Ilibft/inc -Imlx42 -c $< -o $@ 
+	@${CC} ${FLAGS} -I${INCDIR} -I. -c $< -o $@
 	
 all: $(NAME)
 
 $(NAME): $(OBJDIR) $(OBJS)
-	make -C $(LIBFTDIR)
-	$(CC) ${FLAGS} $(MLX42) $(OBJS) -L$(dir $(LIBFT)) -lft -o $(NAME)
+	@$(AR) $(NAME) $(OBJS)
 
 $(OBJDIR):
 	$(MK) $(OBJDIR)
 
 clean:
 	$(RM) $(OBJDIR)
-	make -C $(LIBFTDIR) clean
 
 fclean: clean
 	$(RM) $(NAME)
-	make -C $(LIBFTDIR) fclean
 
 re: fclean all

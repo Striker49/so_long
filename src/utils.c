@@ -6,7 +6,7 @@
 /*   By: seroy <seroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:49:57 by seroy             #+#    #+#             */
-/*   Updated: 2023/03/24 17:35:39 by seroy            ###   ########.fr       */
+/*   Updated: 2023/04/12 13:13:30 by seroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,25 @@ void	ft_free_map(char **s)
 	return;
 }
 
-int	errmessage(char *s)
+// void	ft_free_err(void)
+// {
+// 	t_olivier err;
+
+// 	if (err.map)
+// 		free(err.map);
+// 	return;
+// }
+
+int	errmessage(int	a)
 {
-	perror(s);
-	return(0);
+	if (a == 1)
+		printf("Error\nWrong number of objects");
+	if (a == 2)
+		printf("Error\nMap is not rectangular");
+	if (a == 3)
+		printf("Error\nMap is not surrounded by walls");
+	if (a == 4)
+		printf("Error\nNo path to all collectibles and/or exit");
+	// ft_free_err();
+	exit(0);
 }
