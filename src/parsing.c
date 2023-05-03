@@ -128,16 +128,14 @@ int ft_path(char **map, t_data *path)
 	char	**map2;
 	int		x_pos;
 	int		y_pos;
-	int		V;
 	int		N;
-    int i;
 
-	V = '0';
 	N = '+';
 	x_pos = ft_strchr_x(map, 'P');
-	path->startp.x = x_pos;
+	path->startpx = x_pos;
 	y_pos = ft_strchr_y(map, 'P');
-	path->startp.y = y_pos;
+	path->startpy = y_pos;
+	printf("%d\n%d\n", path->startpx, path->startpy);
 	map2 = ft_copy_map(map);
 	if (!map2)
 		return (0);
@@ -151,7 +149,6 @@ int ft_valid(char **map)
 {
 	t_data ver;
 
-
 	if (!ft_ecp(map, &ver))
 		errmessage(1);
 	if (!is_rectangular(map))
@@ -159,6 +156,6 @@ int ft_valid(char **map)
 	if (!ft_walls(map))
 		errmessage(3);
 	if (!ft_path(map, &ver))
-		errmessage(4);
+		errmessage(4);	
 	return (1);
 }

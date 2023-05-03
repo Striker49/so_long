@@ -12,8 +12,6 @@
 
 #include "so_long.h"
 
-#include "so_long.h"
-
 int	main(int argc, char **argv)
 {
 	int			fd;
@@ -48,7 +46,7 @@ int	main(int argc, char **argv)
 		i++;
 	}
 	ft_valid(create.map);
-	ft_draw_map(create, create.map);
+	ft_draw_map(create);
 	ft_free_map(create.map);
 	return (0);
 }
@@ -59,9 +57,9 @@ static void error(void)
 	exit(EXIT_FAILURE);
 }
 
+// Try to load the file
 void	ft_load_texture(t_data *window)
 {
-	// Try to load the file
 	window->texture_wall = mlx_load_png("./temp/Bricks.png");
 	if (!window->texture_wall)
         error();
@@ -79,25 +77,35 @@ void	ft_load_texture(t_data *window)
         error();
 }
 
-void	ft_draw_map(t_data window, char **map)
-{
-	int h;
-	int	w;
-
-	h = ft_strlen(map[0]) - 1;
-	w = ft_height(map);
-
-	// Start mlx
-	window.mlx = mlx_init(h * 64, w * 64, "So long", true);
-	if (!window.mlx)
+// Start mlx
+void ft_init_mlx(t_data *window, char **map)
+{	
+	window->h = ft_strlen(map[0]) - 1;
+	window->w = ft_height(map);
+	window->mlx = mlx_init(window->h * 64, window->w * 64, "So long", true);
+	if (!window->mlx)
         error();
-	ft_load_texture(&window);
-	ft_text_disp(window, map);
 }
 
+void	ft_draw_map(t_data window)
+{
+	// window.startp.x = ft_strchr_x(window.map, 'P');
+	// window.startp.y = ft_strchr_y(window.map, 'P');
+
+	// printf("x:%d\ny:%d\n", window.startp.x, window.startp.y);
+
+	ft_init_mlx(&window, window.map);
+	ft_load_texture(&window);
+	ft_conv_texture(&window);	
+	ft_disp_img(window);
+	mlx_key_hook(window.mlx, &my_keyhook, NULL);
+	mlx_loop(window.mlx);
+	ft_delete(window);
+}
+
+// Convert texture to a displayable image
 void	ft_conv_texture(t_data *window)
 {
-	// Convert texture to a displayable image
 	window->img_wall = mlx_texture_to_image(window->mlx, window->texture_wall);
 	if (!window->img_wall)
         error();
@@ -115,126 +123,118 @@ void	ft_conv_texture(t_data *window)
         error();
 }
 
-int32_t	ft_text_disp(t_data window, char **map)
+//Player Movement
+void	ft_player_move(int a, t_data *data)
 {
-	ft_conv_texture(&window);
-	ft_disp_img(window, map);
-	mlx_key_hook(window.mlx, &my_keyhook, NULL);
-	mlx_loop(window.mlx);
-	ft_delete(window);
-	return (0);
-}
+	data->startp.x = ft_strchr_x(data->map, 'P');
+	data->startp.y = ft_strchr_y(data->map, 'P');
+	printf("x:%d\ny:%d\n", data->startp.x, data->startp.y);
 
-void	ft_player_move(int a)
-{
-	t_data	*data;
-
-	// printf("%s\n", data->map[4]);
-
-	if (data->startp.x != 0)
+	if (data->startpx != 0)
 	{
-		data->current.x = data->startp.x;
-		data->current.y = data->startp.y;
+		data->currentx = data->startpx;
+		data->currenty = data->startpy;
 	}
-	data->startp.x = 0;
+	data->startpx = 0;
 	if (a == 1)
 	{
-		if (data->map[data->current.y - 1][data->player.x] != '1')
+		if (data->map[data->currenty - 1][data->playerx] != '1')
 		{
-			data->map[data->current.y][data->current.x] = '0';
-			data->map[data->current.y - 1][data->player.x] = 'P';
-			data->current.y = data->current.y - 1;
+			data->map[data->currenty][data->currentx] = '0';
+			data->map[data->currenty - 1][data->playerx] = 'P';
+			data->currenty = data->currenty - 1;
 		}
 	}
 	if (a == 2)
 	{
-		if (data->map[data->current.y + 1][data->player.x] != '1')
+		if (data->map[data->currenty + 1][data->playerx] != '1')
 		{
-			data->map[data->current.y][data->current.x] = '0';
-			data->map[data->current.y + 1][data->player.x] = 'P';
-			data->current.y = data->current.y + 1;
+			data->map[data->currenty][data->currentx] = '0';
+			data->map[data->currenty + 1][data->playerx] = 'P';
+			data->currenty = data->currenty + 1;
 		}
 	}
 	if (a == 3)
 	{
-		if (data->map[data->current.y][data->player.x - 1] != '1')
+		if (data->map[data->currenty][data->playerx - 1] != '1')
 		{
-			data->map[data->current.y][data->current.x] = '0';
-			data->map[data->current.y][data->player.x - 1] = 'P';
-			data->player.x = data->player.x - 1;
+			data->map[data->currenty][data->currentx] = '0';
+			data->map[data->currenty][data->playerx - 1] = 'P';
+			data->playerx = data->playerx - 1;
 		}
 	}
 	if (a == 4)
 	{
-		if (data->map[data->current.y][data->player.x + 1] != '1')
+		if (data->map[data->currenty][data->playerx + 1] != '1')
 		{
-			data->map[data->current.y][data->current.x] = '0';
-			data->map[data->current.y][data->player.x + 1] = 'P';
-			data->player.x = data->player.x + 1;
+			data->map[data->currenty][data->currentx] = '0';
+			data->map[data->currenty][data->playerx + 1] = 'P';
+			data->playerx = data->playerx + 1;
 		}
 	}
-	ft_disp_img(*data, data->map);
+	ft_disp_img(*data);
 	
 }
 
+//Key Pressed
 void my_keyhook(mlx_key_data_t keydata, void* param)
 {
 	t_data		change;
 
 	// If we PRESS the 'up' key, go up.
 	if (keydata.key == MLX_KEY_UP && keydata.action == MLX_PRESS)
-		ft_player_move(1);
+		ft_player_move(1, &change);
 
 	// If we PRESS the 'down' key, go down.
 	if (keydata.key == MLX_KEY_DOWN && keydata.action == MLX_PRESS)
-		ft_player_move(2);
+		ft_player_move(2, &change);
 
 	// If we PRESS the 'left' key, go left.
 	if (keydata.key == MLX_KEY_LEFT && keydata.action == MLX_PRESS)
-		ft_player_move(3);
+		ft_player_move(3, &change);
 
 	// If we PRESS the 'right' key, go right.
 	if (keydata.key == MLX_KEY_RIGHT && keydata.action == MLX_PRESS)
-		ft_player_move(4);
+		ft_player_move(4, &change);
 
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		exit(0);
-	ft_disp_img(change, change.map);
+	ft_disp_img(change);
 }
 
-
-void	ft_disp_img(t_data window, char **map)
+//Display images
+void	ft_disp_img(t_data window)
 {
 	int	x;
 	int	y;
-	// Display the image
+
 	y = 0;
-	while (map[y])
+	while (window.map[y])
 	{
 		x = 0;
-		while (map[y][x])
+		while (window.map[y][x])
 		{
-			if (map[y][x] == '1')
+			if (window.map[y][x] == '1')
 			{
 				if (mlx_image_to_window(window.mlx, window.img_wall, x * 64, y * 64) < 0)
         			error();
 			}
-			if (map[y][x] == '0')
+			if (window.map[y][x] == '0')
 			{
 				if (mlx_image_to_window(window.mlx, window.img_floor, x * 64, y * 64) < 0)
         			error();
 			}
-			if (map[y][x] == 'C')
+			if (window.map[y][x] == 'C')
 			{
 				if (mlx_image_to_window(window.mlx, window.img_collec, x * 64, y * 64) < 0)
         			error();
 			}
-			if (map[y][x] == 'P')
+			if (window.map[y][x] == 'P')
 			{
 				if (mlx_image_to_window(window.mlx, window.img_start, x * 64, y * 64) < 0)
         			error();
 			}
-			if (map[y][x] == 'E')
+			if (window.map[y][x] == 'E')
 			{
 				if (mlx_image_to_window(window.mlx, window.img_exit, x * 64, y * 64) < 0)
         			error();
