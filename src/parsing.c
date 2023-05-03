@@ -123,7 +123,7 @@ int	flood_fill(char **map, int x_pos, int y_pos, int N)
 
 //Check if valid path
 
-int ft_path(char **map, t_data path)
+int ft_path(char **map, t_data *path)
 {
 	char	**map2;
 	int		x_pos;
@@ -135,14 +135,13 @@ int ft_path(char **map, t_data path)
 	V = '0';
 	N = '+';
 	x_pos = ft_strchr_x(map, 'P');
-	path.startp.x = x_pos;
+	path->startp.x = x_pos;
 	y_pos = ft_strchr_y(map, 'P');
-	path.startp.y = y_pos;
+	path->startp.y = y_pos;
 	map2 = ft_copy_map(map);
 	if (!map2)
 		return (0);
-	// printf("orig:%s\n", path.map[0]);
-	if (path.collectible != flood_fill(map2, x_pos, y_pos, N))
+	if (path->collectible != flood_fill(map2, x_pos, y_pos, N))
 		return (0);
 	free(map2);
 	return (1);
@@ -159,7 +158,7 @@ int ft_valid(char **map)
 		errmessage(2);
 	if (!ft_walls(map))
 		errmessage(3);
-	if (!ft_path(map, ver))
+	if (!ft_path(map, &ver))
 		errmessage(4);
 	return (1);
 }

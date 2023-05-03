@@ -12,6 +12,8 @@
 
 #include "so_long.h"
 
+#include "so_long.h"
+
 int	main(int argc, char **argv)
 {
 	int			fd;
@@ -46,7 +48,7 @@ int	main(int argc, char **argv)
 		i++;
 	}
 	ft_valid(create.map);
-	ft_draw_map(create.map);
+	ft_draw_map(create, create.map);
 	ft_free_map(create.map);
 	return (0);
 }
@@ -57,11 +59,28 @@ static void error(void)
 	exit(EXIT_FAILURE);
 }
 
-void	ft_draw_map(char **map)
+void	ft_load_texture(t_data *window)
 {
-	t_window	window;
-	int	x;
-	int	y;
+	// Try to load the file
+	window->texture_wall = mlx_load_png("./temp/Bricks.png");
+	if (!window->texture_wall)
+        error();
+	window->texture_floor = mlx_load_png("./temp/grass.png");
+	if (!window->texture_floor)
+        error();
+	window->texture_collec = mlx_load_png("./temp/sus.png");
+	if (!window->texture_collec)
+        error();
+	window->texture_start = mlx_load_png("./temp/Zombie01_Idle_000.png");
+	if (!window->texture_start)
+        error();
+	window->texture_exit = mlx_load_png("./temp/Gold1.png");
+	if (!window->texture_exit)
+        error();
+}
+
+void	ft_draw_map(t_data window, char **map)
+{
 	int h;
 	int	w;
 
@@ -72,43 +91,33 @@ void	ft_draw_map(char **map)
 	window.mlx = mlx_init(h * 64, w * 64, "So long", true);
 	if (!window.mlx)
         error();
-	// Try to load the file
-	window.texture_wall = mlx_load_png("./temp/Bricks.png");
-	if (!window.texture_wall)
-        error();
-	window.texture_floor = mlx_load_png("./temp/grass.png");
-	if (!window.texture_floor)
-        error();
-	window.texture_collec = mlx_load_png("./temp/sus.png");
-	if (!window.texture_collec)
-        error();
-	window.texture_start = mlx_load_png("./temp/Zombie01_Idle_000.png");
-	if (!window.texture_start)
-        error();
-	window.texture_exit = mlx_load_png("./temp/Gold1.png");
-	if (!window.texture_exit)
-        error();
-	ft_text_disp(window, x, y, map);
+	ft_load_texture(&window);
+	ft_text_disp(window, map);
 }
 
-int32_t	ft_text_disp(t_window window, int x, int y, char **map)
+void	ft_conv_texture(t_data *window)
 {
 	// Convert texture to a displayable image
-	window.img_wall = mlx_texture_to_image(window.mlx, window.texture_wall);
-	if (!window.img_wall)
+	window->img_wall = mlx_texture_to_image(window->mlx, window->texture_wall);
+	if (!window->img_wall)
         error();
-	window.img_floor = mlx_texture_to_image(window.mlx, window.texture_floor);
-	if (!window.img_floor)
+	window->img_floor = mlx_texture_to_image(window->mlx, window->texture_floor);
+	if (!window->img_floor)
         error();
-	window.img_collec = mlx_texture_to_image(window.mlx, window.texture_collec);
-	if (!window.img_collec)
+	window->img_collec = mlx_texture_to_image(window->mlx, window->texture_collec);
+	if (!window->img_collec)
         error();
-	window.img_start = mlx_texture_to_image(window.mlx, window.texture_start);
-	if (!window.img_start)
+	window->img_start = mlx_texture_to_image(window->mlx, window->texture_start);
+	if (!window->img_start)
         error();
-	window.img_exit = mlx_texture_to_image(window.mlx, window.texture_exit);
-	if (!window.img_exit)
+	window->img_exit = mlx_texture_to_image(window->mlx, window->texture_exit);
+	if (!window->img_exit)
         error();
+}
+
+int32_t	ft_text_disp(t_data window, char **map)
+{
+	ft_conv_texture(&window);
 	ft_disp_img(window, map);
 	mlx_key_hook(window.mlx, &my_keyhook, NULL);
 	mlx_loop(window.mlx);
@@ -118,62 +127,59 @@ int32_t	ft_text_disp(t_window window, int x, int y, char **map)
 
 void	ft_player_move(int a)
 {
-	t_window window;
-	t_data	data;
+	t_data	*data;
 
-	printf("%s\n", data.map[4]);
+	// printf("%s\n", data->map[4]);
 
-	if (data.startp.x != 0)
+	if (data->startp.x != 0)
 	{
-		data.current.x = data.startp.x;
-		data.current.y = data.startp.y;
+		data->current.x = data->startp.x;
+		data->current.y = data->startp.y;
 	}
-	data.startp.x = 0;
+	data->startp.x = 0;
 	if (a == 1)
 	{
-		if (data.map[data.current.y - 1][data.player.x] != '1')
+		if (data->map[data->current.y - 1][data->player.x] != '1')
 		{
-			data.map[data.current.y][data.current.x] = '0';
-			data.map[data.current.y - 1][data.player.x] = 'P';
-			data.current.y = data.current.y - 1;
+			data->map[data->current.y][data->current.x] = '0';
+			data->map[data->current.y - 1][data->player.x] = 'P';
+			data->current.y = data->current.y - 1;
 		}
 	}
 	if (a == 2)
 	{
-		if (data.map[data.current.y + 1][data.player.x] != '1')
+		if (data->map[data->current.y + 1][data->player.x] != '1')
 		{
-			data.map[data.current.y][data.current.x] = '0';
-			data.map[data.current.y + 1][data.player.x] = 'P';
-			data.current.y = data.current.y + 1;
+			data->map[data->current.y][data->current.x] = '0';
+			data->map[data->current.y + 1][data->player.x] = 'P';
+			data->current.y = data->current.y + 1;
 		}
 	}
 	if (a == 3)
 	{
-		if (data.map[data.current.y][data.player.x - 1] != '1')
+		if (data->map[data->current.y][data->player.x - 1] != '1')
 		{
-			data.map[data.current.y][data.current.x] = '0';
-			data.map[data.current.y][data.player.x - 1] = 'P';
-			data.player.x = data.player.x - 1;
+			data->map[data->current.y][data->current.x] = '0';
+			data->map[data->current.y][data->player.x - 1] = 'P';
+			data->player.x = data->player.x - 1;
 		}
 	}
 	if (a == 4)
 	{
-		if (data.map[data.current.y][data.player.x + 1] != '1')
+		if (data->map[data->current.y][data->player.x + 1] != '1')
 		{
-			data.map[data.current.y][data.current.x] = '0';
-			data.map[data.current.y][data.player.x + 1] = 'P';
-			data.player.x = data.player.x + 1;
+			data->map[data->current.y][data->current.x] = '0';
+			data->map[data->current.y][data->player.x + 1] = 'P';
+			data->player.x = data->player.x + 1;
 		}
 	}
-	ft_disp_img(window, data.map);
+	ft_disp_img(*data, data->map);
 	
 }
 
 void my_keyhook(mlx_key_data_t keydata, void* param)
 {
 	t_data		change;
-	t_window	move;
-
 
 	// If we PRESS the 'up' key, go up.
 	if (keydata.key == MLX_KEY_UP && keydata.action == MLX_PRESS)
@@ -193,12 +199,11 @@ void my_keyhook(mlx_key_data_t keydata, void* param)
 
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		exit(0);
-	printf("%s\n", "allô");
-	ft_disp_img(move, change.map);
+	ft_disp_img(change, change.map);
 }
 
 
-void	ft_disp_img(t_window window, char **map)
+void	ft_disp_img(t_data window, char **map)
 {
 	int	x;
 	int	y;
@@ -242,7 +247,7 @@ void	ft_disp_img(t_window window, char **map)
 }
 	
 
-int32_t	ft_delete(t_window window)
+int32_t	ft_delete(t_data window)
 {
 	// Optional, terminate will clean up any leftovers, this is just to demonstrate.
 	mlx_delete_image(window.mlx, window.img_wall);
