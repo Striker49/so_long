@@ -59,7 +59,7 @@ void	ft_init_struct(t_data *data)
 	data->mlx_ptr = 0;
 	data->win_ptr = 0;
 	data->map = 0;
-	data->collectible = 0;
+	data->collectible = ft_strchr_map(data->map, 'C');
 	data->exit = 0;
 	data->start = 0;
 	data->c = 0;
@@ -71,6 +71,10 @@ void	ft_init_struct(t_data *data)
 	data->currenty = 0;
 	data->currentx = 0;
 	data->playery = 0;
+	data->exitx = 0;
+	data->exity = 0;
+	data->moves = 0;
+
 }
 
 static void error(void)
@@ -115,16 +119,55 @@ void ft_init_pos(t_data *data)
 	data->startpy = ft_strchr_y(data->map, 'P');
 	data->currentx = data->startpx;
 	data->currenty = data->startpy;
+	data->exitx = ft_strchr_x(data->map, 'E');
+	data->exity = ft_strchr_x(data->map, 'E');
+	data->collectible = ft_strchr_map(data->map, 'C');
+
+}
+
+void ft_img2(t_data *window)
+{
+	window->texture_wall2 = mlx_load_png("./temp/Bricks.png");
+	if (!window->texture_wall2)
+        error();
+	window->texture_floor2 = mlx_load_png("./temp/grass.png");
+	if (!window->texture_floor2)
+        error();
+	window->texture_collec2 = mlx_load_png("./temp/sus.png");
+	if (!window->texture_collec2)
+        error();
+	window->texture_start2 = mlx_load_png("./temp/Zombie01_Idle_000.png");
+	if (!window->texture_start2)
+        error();
+	window->texture_exit2 = mlx_load_png("./temp/Gold1.png");
+	if (!window->texture_exit2)
+        error();
+	window->img_wall2 = mlx_texture_to_image(window->mlx, window->texture_wall);
+	if (!window->img_wall2)
+        error();
+	window->img_floor2 = mlx_texture_to_image(window->mlx, window->texture_floor);
+	if (!window->img_floor2)
+        error();
+	window->img_collec2 = mlx_texture_to_image(window->mlx, window->texture_collec);
+	if (!window->img_collec2)
+        error();
+	window->img_start2 = mlx_texture_to_image(window->mlx, window->texture_start);
+	if (!window->img_start2)
+        error();
+	window->img_exit2 = mlx_texture_to_image(window->mlx, window->texture_exit);
+	if (!window->img_exit2)
+        error();
 }
 
 void	ft_draw_map(t_data *window)
 {
 
-	printf("x:%d\ny:%d\n", window->startpx, window->startpy);
+	printf("c:%d\n", window->collectible);
 
 	ft_init_mlx(window, window->map);
 	ft_load_texture(window);
-	ft_conv_texture(window);	
+	ft_conv_texture(window);
+	ft_img2(window);
 	mlx_loop_hook(window->mlx, &ft_disp_img, window);
 	mlx_key_hook(window->mlx, &my_keyhook, window);
 	mlx_loop(window->mlx);
@@ -158,9 +201,13 @@ void	ft_player_move(int a, t_data *data)
 	{
 		if(data->map[data->currenty - 1][data->currentx] != '1')
 		{
-			data->map[data->currenty][data->currentx] = '0';
+			if (data->map[data->currenty - 1][data->currentx] == 'C')
+				data->collectible -= 1;
+			if (data->map[data->currenty][data->currentx] != 'E')
+				data->map[data->currenty][data->currentx] = '0';
 			data->map[data->currenty - 1][data->currentx] = 'P';
 			data->currenty -= 1;
+			data->moves += 1;
 		}
 	}
 		
@@ -168,29 +215,44 @@ void	ft_player_move(int a, t_data *data)
 	{
 		if (data->map[data->currenty + 1][data->currentx] != '1')
 		{
-			data->map[data->currenty][data->currentx] = '0';
+			if (data->map[data->currenty + 1][data->currentx] == 'C')
+				data->collectible -= 1;
+			if (data->map[data->currenty][data->currentx] != 'E')
+				data->map[data->currenty][data->currentx] = '0';
 			data->map[data->currenty + 1][data->currentx] = 'P';
 			data->currenty = data->currenty + 1;
+			data->moves += 1;
 		}
 	}
 	if (a == 3)
 	{
 		if (data->map[data->currenty][data->currentx - 1] != '1')
 		{
-			data->map[data->currenty][data->currentx] = '0';
+			if (data->map[data->currenty][data->currentx - 1] == 'C')
+				data->collectible -= 1;
+			if (data->map[data->currenty][data->currentx] != 'E')
+				data->map[data->currenty][data->currentx] = '0';
 			data->map[data->currenty][data->currentx - 1] = 'P';
 			data->currentx = data->currentx - 1;
+			data->moves += 1;
 		}
 	}
 	if (a == 4)
 	{
 		if (data->map[data->currenty][data->currentx + 1] != '1')
 		{
-			data->map[data->currenty][data->currentx] = '0';
+			if (data->map[data->currenty][data->currentx + 1] == 'C')
+				data->collectible -= 1;
+			if (data->map[data->currenty][data->currentx] != 'E')
+				data->map[data->currenty][data->currentx] = '0';
 			data->map[data->currenty][data->currentx + 1] = 'P';
 			data->currentx = data->currentx + 1;
+			data->moves += 1;
 		}
 	}
+	if (data->collectible == 0 && data->map[data->currenty][data->currentx] == 'E')
+		ft_delete(data);
+
 	
 }
 
@@ -225,6 +287,18 @@ void my_keyhook(mlx_key_data_t keydata, void* param)
 	// ft_disp_img(change);
 }
 
+char	*ft_put_string(t_data *window)
+{
+	char *c;
+	char *m;
+	char *t;
+
+	c = ft_strjoin("Collectibles left:", ft_itoa(window->collectible));
+	m = ft_strjoin("					Moves:", ft_itoa(window->moves));
+	t = ft_strjoin(c, m);
+	return (t);
+}
+
 //Display images
 void	ft_disp_img(void *param)
 {
@@ -233,6 +307,8 @@ void	ft_disp_img(void *param)
 	t_data *window;
 
 	window = param;
+	mlx_put_string(window->mlx, ft_put_string(window), 16, 16);
+	mlx_put_string(window->mlx, ft_itoa(window->collectible), 16, 32);
 	y = 0;
 	while (window->map[y])
 	{

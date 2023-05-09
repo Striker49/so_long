@@ -15,7 +15,6 @@ typedef	struct s_position
 
 } t_position;
 
-
 typedef struct s_data
 {
 	void			*mlx_ptr;
@@ -33,6 +32,9 @@ typedef struct s_data
 	int				currenty;
 	int				playerx;
 	int				playery;
+	int				exitx;
+	int				exity;
+	int 			moves;
 	t_position		startp;
 	t_position		player;
 	t_position		current;
@@ -47,6 +49,18 @@ typedef struct s_data
 	mlx_texture_t* 	texture_collec;
 	mlx_texture_t* 	texture_start;
 	mlx_texture_t* 	texture_exit;
+	
+	mlx_image_t* 	img_wall2;
+	mlx_image_t* 	img_floor2;
+	mlx_image_t* 	img_collec2;
+	mlx_image_t* 	img_start2;
+	mlx_image_t* 	img_exit2;
+	mlx_t* 			mlx2;
+	mlx_texture_t* 	texture_wall2;
+	mlx_texture_t* 	texture_floor2;
+	mlx_texture_t* 	texture_collec2;
+	mlx_texture_t* 	texture_start2;
+	mlx_texture_t* 	texture_exit2;
 }   t_data;
 
 void	ft_init_struct(t_data *data);
@@ -67,5 +81,6 @@ int32_t	ft_delete(t_data *window);
 void 	my_keyhook(mlx_key_data_t keydata, void* param);
 void	ft_free_err(void);
 void	ft_player_move(int a, t_data *data);
+char	*ft_put_string(t_data *window);
 int	errmessage(int a);
 #endif
