@@ -49,6 +49,8 @@ typedef struct s_data
 	mlx_texture_t* 	texture_exit;
 }   t_data;
 
+void	ft_init_struct(t_data *data);
+void 	ft_init_pos(t_data *data);
 int     ft_valid(char **map);
 int     ft_strchr_map(char **s, int c);
 int	    ft_height(char **map);
@@ -57,11 +59,11 @@ int		ft_strchr_y(char **s, int c);
 void	ft_free_map(char **s);
 void	ft_init_mlx(t_data *window, char **map);
 void 	ft_init_data(t_data *window);
-void	ft_draw_map(t_data window);
+void	ft_draw_map(t_data *window);
 void	ft_load_texture(t_data *window);
 void	ft_conv_texture(t_data *window);
-void	ft_disp_img(t_data window);
-int32_t	ft_delete(t_data window);
+void	ft_disp_img(void *param);
+int32_t	ft_delete(t_data *window);
 void 	my_keyhook(mlx_key_data_t keydata, void* param);
 void	ft_free_err(void);
 void	ft_player_move(int a, t_data *data);

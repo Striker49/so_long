@@ -96,22 +96,22 @@ char    **ft_copy_map(char **map)
 	return (map2);
 }
 
-int	flood_fill(char **map, int x_pos, int y_pos, int N)
+int	flood_fill(char **map, int y_pos, int x_pos, int N)
 {
 	static int count;
 	static int exit;
 
-	if (map[x_pos][y_pos] == '1' || map[x_pos][y_pos] == N)
+	if (map[y_pos][x_pos] == '1' || map[y_pos][x_pos] == N)
 		return (0);
-	if (map[x_pos][y_pos] == 'C')
+	if (map[y_pos][x_pos] == 'C')
 		count++;
-	if (map[x_pos][y_pos] == 'E')
+	if (map[y_pos][x_pos] == 'E')
 		exit = 1;
-	map[x_pos][y_pos] = N;
-	flood_fill(map, x_pos - 1, y_pos, N);
-	flood_fill(map, x_pos + 1, y_pos, N);
-	flood_fill(map, x_pos, y_pos - 1, N);
-	flood_fill(map, x_pos, y_pos + 1, N);
+	map[y_pos][x_pos] = N;
+	flood_fill(map, y_pos - 1, x_pos, N);
+	flood_fill(map, y_pos + 1, x_pos, N);
+	flood_fill(map, y_pos, x_pos - 1, N);
+	flood_fill(map, y_pos, x_pos + 1, N);
 	if (exit != 1)
 	{
 		free(map);
@@ -135,11 +135,11 @@ int ft_path(char **map, t_data *path)
 	path->startpx = x_pos;
 	y_pos = ft_strchr_y(map, 'P');
 	path->startpy = y_pos;
-	printf("%d\n%d\n", path->startpx, path->startpy);
+	// printf("%d\n%d\n", path->startpx, path->startpy);
 	map2 = ft_copy_map(map);
 	if (!map2)
 		return (0);
-	if (path->collectible != flood_fill(map2, x_pos, y_pos, N))
+	if (path->collectible != flood_fill(map2, y_pos, x_pos, N))
 		return (0);
 	free(map2);
 	return (1);
