@@ -77,10 +77,11 @@ void	ft_draw_map(t_data *window);
 void	ft_load_texture(t_data *window);
 void	ft_conv_texture(t_data *window);
 void	ft_disp_img(void *param);
-int32_t	ft_delete(t_data *window);
+void	ft_delete(t_data *window);
 void 	my_keyhook(mlx_key_data_t keydata, void* param);
 void	ft_free_err(void);
 void	ft_player_move(int a, t_data *data);
 char	*ft_put_string(t_data *window);
 int	errmessage(int a);
+int32_t ft_exit(void);
 #endif

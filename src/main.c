@@ -87,20 +87,15 @@ static void error(void)
 void	ft_load_texture(t_data *window)
 {
 	window->texture_wall = mlx_load_png("./temp/Bricks.png");
-	if (!window->texture_wall)
-        error();
+
 	window->texture_floor = mlx_load_png("./temp/grass.png");
-	if (!window->texture_floor)
-        error();
+
 	window->texture_collec = mlx_load_png("./temp/sus.png");
-	if (!window->texture_collec)
-        error();
+
 	window->texture_start = mlx_load_png("./temp/Zombie01_Idle_000.png");
-	if (!window->texture_start)
-        error();
+
 	window->texture_exit = mlx_load_png("./temp/Gold1.png");
-	if (!window->texture_exit)
-        error();
+
 }
 
 // Start mlx
@@ -120,7 +115,7 @@ void ft_init_pos(t_data *data)
 	data->currentx = data->startpx;
 	data->currenty = data->startpy;
 	data->exitx = ft_strchr_x(data->map, 'E');
-	data->exity = ft_strchr_x(data->map, 'E');
+	data->exity = ft_strchr_y(data->map, 'E');
 	data->collectible = ft_strchr_map(data->map, 'C');
 
 }
@@ -128,41 +123,29 @@ void ft_init_pos(t_data *data)
 void ft_img2(t_data *window)
 {
 	window->texture_wall2 = mlx_load_png("./temp/Bricks.png");
-	if (!window->texture_wall2)
-        error();
+
 	window->texture_floor2 = mlx_load_png("./temp/grass.png");
-	if (!window->texture_floor2)
-        error();
+
 	window->texture_collec2 = mlx_load_png("./temp/sus.png");
-	if (!window->texture_collec2)
-        error();
+
 	window->texture_start2 = mlx_load_png("./temp/Zombie01_Idle_000.png");
-	if (!window->texture_start2)
-        error();
+
 	window->texture_exit2 = mlx_load_png("./temp/Gold1.png");
-	if (!window->texture_exit2)
-        error();
+
 	window->img_wall2 = mlx_texture_to_image(window->mlx, window->texture_wall);
-	if (!window->img_wall2)
-        error();
+
 	window->img_floor2 = mlx_texture_to_image(window->mlx, window->texture_floor);
-	if (!window->img_floor2)
-        error();
+
 	window->img_collec2 = mlx_texture_to_image(window->mlx, window->texture_collec);
-	if (!window->img_collec2)
-        error();
+
 	window->img_start2 = mlx_texture_to_image(window->mlx, window->texture_start);
-	if (!window->img_start2)
-        error();
+
 	window->img_exit2 = mlx_texture_to_image(window->mlx, window->texture_exit);
-	if (!window->img_exit2)
-        error();
 }
 
 void	ft_draw_map(t_data *window)
 {
-
-	printf("c:%d\n", window->collectible);
+	// image_t image;
 
 	ft_init_mlx(window, window->map);
 	ft_load_texture(window);
@@ -172,26 +155,22 @@ void	ft_draw_map(t_data *window)
 	mlx_key_hook(window->mlx, &my_keyhook, window);
 	mlx_loop(window->mlx);
 	ft_delete(window);
+	ft_exit();
 }
 
 // Convert texture to a displayable image
 void	ft_conv_texture(t_data *window)
 {
 	window->img_wall = mlx_texture_to_image(window->mlx, window->texture_wall);
-	if (!window->img_wall)
-        error();
+
 	window->img_floor = mlx_texture_to_image(window->mlx, window->texture_floor);
-	if (!window->img_floor)
-        error();
+
 	window->img_collec = mlx_texture_to_image(window->mlx, window->texture_collec);
-	if (!window->img_collec)
-        error();
+
 	window->img_start = mlx_texture_to_image(window->mlx, window->texture_start);
-	if (!window->img_start)
-        error();
+
 	window->img_exit = mlx_texture_to_image(window->mlx, window->texture_exit);
-	if (!window->img_exit)
-        error();
+
 }
 
 //Player Movement
@@ -203,8 +182,7 @@ void	ft_player_move(int a, t_data *data)
 		{
 			if (data->map[data->currenty - 1][data->currentx] == 'C')
 				data->collectible -= 1;
-			if (data->map[data->currenty][data->currentx] != 'E')
-				data->map[data->currenty][data->currentx] = '0';
+			data->map[data->currenty][data->currentx] = '0';
 			data->map[data->currenty - 1][data->currentx] = 'P';
 			data->currenty -= 1;
 			data->moves += 1;
@@ -217,8 +195,7 @@ void	ft_player_move(int a, t_data *data)
 		{
 			if (data->map[data->currenty + 1][data->currentx] == 'C')
 				data->collectible -= 1;
-			if (data->map[data->currenty][data->currentx] != 'E')
-				data->map[data->currenty][data->currentx] = '0';
+			data->map[data->currenty][data->currentx] = '0';
 			data->map[data->currenty + 1][data->currentx] = 'P';
 			data->currenty = data->currenty + 1;
 			data->moves += 1;
@@ -230,8 +207,7 @@ void	ft_player_move(int a, t_data *data)
 		{
 			if (data->map[data->currenty][data->currentx - 1] == 'C')
 				data->collectible -= 1;
-			if (data->map[data->currenty][data->currentx] != 'E')
-				data->map[data->currenty][data->currentx] = '0';
+			data->map[data->currenty][data->currentx] = '0';
 			data->map[data->currenty][data->currentx - 1] = 'P';
 			data->currentx = data->currentx - 1;
 			data->moves += 1;
@@ -243,15 +219,19 @@ void	ft_player_move(int a, t_data *data)
 		{
 			if (data->map[data->currenty][data->currentx + 1] == 'C')
 				data->collectible -= 1;
-			if (data->map[data->currenty][data->currentx] != 'E')
-				data->map[data->currenty][data->currentx] = '0';
+			data->map[data->currenty][data->currentx] = '0';
 			data->map[data->currenty][data->currentx + 1] = 'P';
 			data->currentx = data->currentx + 1;
 			data->moves += 1;
 		}
 	}
-	if (data->collectible == 0 && data->map[data->currenty][data->currentx] == 'E')
-		ft_delete(data);
+	if (data->collectible == 0 && data->map[data->currenty][data->currentx] == data->map[data->exity][data->exitx])
+	{
+		printf("%s", "fini?");
+		mlx_close_window(data->mlx);
+		mlx_terminate(data->mlx);
+
+	}
 
 	
 }
@@ -265,10 +245,7 @@ void my_keyhook(mlx_key_data_t keydata, void* param)
 
 	// If we PRESS the 'up' key, go up.
 	if (keydata.key == MLX_KEY_UP && keydata.action == MLX_PRESS)
-	{
-		// printf("av%d", change->currenty);
 		ft_player_move(1, change);
-	}
 
 	// If we PRESS the 'down' key, go down.
 	if (keydata.key == MLX_KEY_DOWN && keydata.action == MLX_PRESS)
@@ -284,7 +261,6 @@ void my_keyhook(mlx_key_data_t keydata, void* param)
 
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		exit(0);
-	// ft_disp_img(change);
 }
 
 char	*ft_put_string(t_data *window)
@@ -293,7 +269,7 @@ char	*ft_put_string(t_data *window)
 	char *m;
 	char *t;
 
-	c = ft_strjoin("Collectibles left:", ft_itoa(window->collectible));
+	c = ft_strjoin("Brains left:", ft_itoa(window->collectible));
 	m = ft_strjoin("					Moves:", ft_itoa(window->moves));
 	t = ft_strjoin(c, m);
 	return (t);
@@ -339,8 +315,16 @@ void	ft_disp_img(void *param)
 			}
 			if (window->map[y][x] == 'E')
 			{
-				if (mlx_image_to_window(window->mlx, window->img_exit, x * 64, y * 64) < 0)
-        			error();
+				if (window->collectible == 0)
+				{
+					if (mlx_image_to_window(window->mlx, window->img_exit, x * 64, y * 64) < 0)
+        				error();
+				}
+				else
+					{
+						if (mlx_image_to_window(window->mlx, window->img_floor, x * 64, y * 64) < 0)
+        				error();
+					}
 			}
 			x++;
 		}
@@ -349,7 +333,7 @@ void	ft_disp_img(void *param)
 }
 	
 
-int32_t	ft_delete(t_data *window)
+void	ft_delete(t_data *window)
 {
 	// Optional, terminate will clean up any leftovers, this is just to demonstrate.
 	mlx_delete_image(window->mlx, window->img_wall);
@@ -363,5 +347,9 @@ int32_t	ft_delete(t_data *window)
 	mlx_delete_texture(window->texture_start);
 	mlx_delete_texture(window->texture_exit);
 	mlx_terminate(window->mlx);
+}
+
+int32_t ft_exit(void)
+{
 	return (EXIT_SUCCESS);
 }
