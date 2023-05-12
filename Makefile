@@ -26,7 +26,7 @@ CFLAGS = -Wall -Wextra -Werror
 MK = mkdir -p
 RM = rm -rf
 USER = $(shell whoami)
-MLX42 = -framework Cocoa -framework OpenGL -framework IOKit MLX42/build/libmlx42.a -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib"
+MLX42 = -framework Cocoa -framework OpenGL -framework IOKit MLX42/build/libmlx42.a -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib" -fsanitize=address -g
 
 #Sources directories
 
@@ -35,7 +35,7 @@ SRCDIR = src
 LIBFT_A = libft.a
 LIBFTDIR = libft
 LIBFT = $(addprefix $(LIBFTDIR)/, $(LIBFT_A))
-SRC = parsing.c utils.c	main.c window.c 
+SRC = parsing.c utils.c	main.c render_map.c player_move.c keyhook.c load_img.c initiation.c free.c
 		
 VPATH = ${SRCDIR}
 
