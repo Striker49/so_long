@@ -102,28 +102,21 @@ int	main(int argc, char**argv)
 	ft_init_mlx(window, window->map);
 	ft_load_texture(window);
 	ft_conv_texture(window);
+	ft_img2(window);
 	mlx_loop_hook(window->mlx, &ft_disp_img, window);
 	mlx_key_hook(window->mlx, &my_keyhook, window);
 	mlx_loop(window->mlx);
 	mlx_terminate(window->mlx);
 	ft_free_all(window);
-	// ft_delete(window);
 }
 
 
-
-void	ft_delete(t_data *window)
+//Delete image2
+void	ft_delete2(t_data *window)
 {
-	// Optional, terminate will clean up any leftovers, this is just to demonstrate.
-	mlx_delete_image(window->mlx, window->img_wall);
-	mlx_delete_image(window->mlx, window->img_floor);
-	mlx_delete_image(window->mlx, window->img_collec);
-	mlx_delete_image(window->mlx, window->img_start);
-	mlx_delete_image(window->mlx, window->img_exit);
-// 	// mlx_delete_texture(window->texture_wall);
-// 	// mlx_delete_texture(window->texture_floor);
-// 	// mlx_delete_texture(window->texture_collec);
-// 	// mlx_delete_texture(window->texture_start);
-// 	// mlx_delete_texture(window->texture_exit);
-// 	// mlx_terminate(window->mlx);
+	mlx_delete_image(window->mlx, window->image2.img_wall);
+	mlx_delete_image(window->mlx, window->image2.img_floor);
+	mlx_delete_image(window->mlx, window->image2.img_collec);
+	mlx_delete_image(window->mlx, window->image2.img_start);
+	mlx_delete_image(window->mlx, window->image2.img_exit);
 }

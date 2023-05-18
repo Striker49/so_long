@@ -98,13 +98,16 @@ void	ft_load_texture(t_data *window);
 void	ft_conv_texture(t_data *window);
 void	ft_put_info(t_data *window);
 void	ft_disp_img(void *param);
-void	ft_delete(t_data *window);
+void	ft_delete2(t_data *window);
 void 	my_keyhook(mlx_key_data_t keydata, void* param);
 void	ft_free_err(void);
 void	ft_player_move(int a, t_data *data);
 char	*ft_put_string(t_data *window);
-void	ft_render_map(t_data *window);
+void	ft_render_map(void *param);
 void    ft_free_all(t_data *data);
+void	ft_render_map1(void *param);
+void ft_img2(t_data *window);
+
 
 int	errmessage(int a);
 int32_t ft_exit(void);
