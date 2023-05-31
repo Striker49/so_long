@@ -6,7 +6,7 @@
 /*   By: seroy <seroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 12:51:25 by seroy             #+#    #+#             */
-/*   Updated: 2023/05/12 12:58:44 by seroy            ###   ########.fr       */
+/*   Updated: 2023/05/31 17:24:00 by seroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,54 +14,75 @@
 
 void    move_up(t_data *data)
 {
-    if(data->map[data->currenty - 1][data->currentx] != '1')
+    if(data->map[data->playery - 1][data->playerx] != '1')
     {
-        if (data->map[data->currenty - 1][data->currentx] == 'C')
+        if (data->map[data->playery - 1][data->playerx] == 'N')
+        {
+            game_over(data);
+        }
+        if (data->map[data->playery - 1][data->playerx] == 'C')
             data->collectible -= 1;
-        data->map[data->currenty][data->currentx] = '0';
-        data->map[data->currenty - 1][data->currentx] = 'P';
-        data->currenty -= 1;
+        data->map[data->playery][data->playerx] = '0';
+        data->map[data->playery - 1][data->playerx] = 'P';
+        data->playery -= 1;
         data->moves += 1;
     }
 }
 
 void    move_down(t_data *data)
 {
-    if (data->map[data->currenty + 1][data->currentx] != '1')
+    if (data->map[data->playery + 1][data->playerx] != '1')
     {
-        if (data->map[data->currenty + 1][data->currentx] == 'C')
+        if (data->map[data->playery + 1][data->playerx] == 'N')
+        {
+            game_over(data);
+
+        }
+        if (data->map[data->playery + 1][data->playerx] == 'C')
             data->collectible -= 1;
-        data->map[data->currenty][data->currentx] = '0';
-        data->map[data->currenty + 1][data->currentx] = 'P';
-        data->currenty = data->currenty + 1;
+        data->map[data->playery][data->playerx] = '0';
+        data->map[data->playery + 1][data->playerx] = 'P';
+        data->playery = data->playery + 1;
         data->moves += 1;
     }
 }
 
 void    move_left(t_data *data)
 {
-    if (data->map[data->currenty][data->currentx - 1] != '1')
+    data->playerw = 1;
+    if (data->map[data->playery][data->playerx - 1] != '1')
     {
-        if (data->map[data->currenty][data->currentx - 1] == 'C')
+        if (data->map[data->playery][data->playerx - 1] == 'N')
+        {
+            game_over(data);
+
+        }
+        if (data->map[data->playery][data->playerx - 1] == 'C')
             data->collectible -= 1;
-        data->map[data->currenty][data->currentx] = '0';
-        data->map[data->currenty][data->currentx - 1] = 'P';
-        data->currentx = data->currentx - 1;
+        data->map[data->playery][data->playerx] = '0';
+        data->map[data->playery][data->playerx - 1] = 'P';
+        data->playerx = data->playerx - 1;
         data->moves += 1;
     }
 }
 
 void    move_right(t_data *data)
 {
-        if (data->map[data->currenty][data->currentx + 1] != '1')
+    data->playerw = 0;
+    if (data->map[data->playery][data->playerx + 1] != '1')
+    {
+        if (data->map[data->playery][data->playerx + 1] == 'N')
         {
-            if (data->map[data->currenty][data->currentx + 1] == 'C')
-                data->collectible -= 1;
-            data->map[data->currenty][data->currentx] = '0';
-            data->map[data->currenty][data->currentx + 1] = 'P';
-            data->currentx = data->currentx + 1;
-            data->moves += 1;
+            game_over(data);
+
         }
+        if (data->map[data->playery][data->playerx + 1] == 'C')
+            data->collectible -= 1;
+        data->map[data->playery][data->playerx] = '0';
+        data->map[data->playery][data->playerx + 1] = 'P';
+        data->playerx = data->playerx + 1;
+        data->moves += 1;
+    }
 }
 
 //Player Movement
@@ -75,7 +96,8 @@ void	ft_player_move(int a, t_data *data)
         move_left(data);
 	if (a == 4)
         move_right(data);
-	if (data->collectible == 0 && data->map[data->currenty][data->currentx] == data->map[data->exity][data->exitx])
+	if (data->collectible == 0 && data->map[data->playery][data->playerx] \
+    == data->map[data->exity][data->exitx])
 	{
 		printf("%s%d%s", "Congratulations!\nYou cleared the game in ", data->moves, " moves");
 		mlx_close_window(data->mlx);

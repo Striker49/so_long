@@ -6,7 +6,7 @@
 /*   By: seroy <seroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 12:44:08 by seroy             #+#    #+#             */
-/*   Updated: 2023/05/18 15:37:24 by seroy            ###   ########.fr       */
+/*   Updated: 2023/05/31 17:22:41 by seroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ void	ft_endline(t_data *window, int y, int x)
 {
 	if (window->collectible == 0)
 		mlx_image_to_window(window->mlx, window->image.img_exit, x * 64, y * 64);
-	else if (window->currenty == y && window->currentx == x)
+	else if (window->playery == y && window->playerx == x)
 	{
 		mlx_image_to_window(window->mlx, window->image.img_floor, x * 64, y * 64);
-		mlx_image_to_window(window->mlx, window->image.img_start, x * 64, y * 64);					
+		mlx_image_to_window(window->mlx, window->image.img_player, x * 64, y * 64);					
 	}
 	else
 	{
@@ -41,17 +41,14 @@ void ft_main_game(t_data *window, int y, int x)
 	if (window->map[y][x] == 'P')
 	{
 		mlx_image_to_window(window->mlx, window->image.img_floor, x * 64, y * 64);
-		mlx_image_to_window(window->mlx, window->image.img_start, x * 64, y * 64);
+		mlx_image_to_window(window->mlx, window->image.img_player, x * 64, y * 64);
 	}
-}
-
-void	ft_copy_image(t_data *window, t_data *window2)
-{
-	window2->img_wall = window->img_wall;
-	window2->img_floor = window->img_floor;
-	window2->img_collec = window->img_collec;
-	window2->img_start = window->img_start;
-	window2->img_exit = window->img_exit;
+	if (window->map[y][x] == 'N')
+	{
+		mlx_image_to_window(window->mlx, window->image.img_floor, x * 64, y * 64);
+		mlx_image_to_window(window->mlx, window->image.img_enemy, x * 64, y * 64);
+	}
+	
 }
 
 //Render map
@@ -64,6 +61,8 @@ void	ft_render_map(void *param)
 	window = param;
 	ft_delete2(window);
 	window->image2 = window->image;
+	if (window->enemy != 0)
+		enemy_move(window);
 	ft_conv_texture(window);
 	
 	y = 0;
@@ -79,6 +78,7 @@ void	ft_render_map(void *param)
 		}
 		y++;
 	}
+	window->time++;
 }
 
 //Render images
@@ -87,10 +87,16 @@ void	ft_disp_img(void *param)
 	int	x;
 	int	y;
 	t_data *window;
-	t_data *window2;
 
 	window = param;
-	ft_put_info(window);
-	ft_render_map(window);
+	if (window->game_state != 0)
+	{
+		game_over(window);
+	}
+	else
+	{
+		ft_put_info(window);
+		ft_render_map(window);
+	}
 }
 	

@@ -6,7 +6,7 @@
 /*   By: seroy <seroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:49:57 by seroy             #+#    #+#             */
-/*   Updated: 2023/05/12 15:45:33 by seroy            ###   ########.fr       */
+/*   Updated: 2023/05/23 15:43:56 by seroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,13 @@ int	errmessage(int	a)
 		printf("Error\nNo path to all collectibles and/or exit");
 	if (a == 5)
 		printf("Error\nMap is not a .ber extension");
-	
-	// ft_free_err();
+	if (a == 6)
+		printf("Error\nMap is too big");
+	if (a == 7)
+		printf("Error\nUnknown objet detected in map file");
+	if (a == 8)
+		printf("Error\nMissing arguments");
+	if (a == 9)
+		printf("Error\nToo many arguments");
 	exit(0);
 }

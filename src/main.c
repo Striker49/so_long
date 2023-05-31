@@ -19,6 +19,10 @@ void	ft_map_format(int argc, char **argv)
 	int		ext;
 	char	*s;
 
+	if (argc < 2)
+		errmessage(8);
+	if (argc > 2)
+		errmessage(9);
 	i = 0;
 	j = 0;
 	s = ".ber";
@@ -100,23 +104,12 @@ int	main(int argc, char**argv)
 	ft_valid(window->map);
 	ft_init_pos(window);
 	ft_init_mlx(window, window->map);
+	ft_enemy_spawn(window);
 	ft_load_texture(window);
 	ft_conv_texture(window);
-	ft_img2(window);
 	mlx_loop_hook(window->mlx, &ft_disp_img, window);
 	mlx_key_hook(window->mlx, &my_keyhook, window);
 	mlx_loop(window->mlx);
 	mlx_terminate(window->mlx);
 	ft_free_all(window);
-}
-
-
-//Delete image2
-void	ft_delete2(t_data *window)
-{
-	mlx_delete_image(window->mlx, window->image2.img_wall);
-	mlx_delete_image(window->mlx, window->image2.img_floor);
-	mlx_delete_image(window->mlx, window->image2.img_collec);
-	mlx_delete_image(window->mlx, window->image2.img_start);
-	mlx_delete_image(window->mlx, window->image2.img_exit);
 }
