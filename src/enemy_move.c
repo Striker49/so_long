@@ -6,7 +6,7 @@
 /*   By: seroy <seroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 12:42:48 by seroy             #+#    #+#             */
-/*   Updated: 2023/05/31 17:03:20 by seroy            ###   ########.fr       */
+/*   Updated: 2023/06/12 12:18:26 by seroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ void	enemy_mover(t_data *window, int y, int x)
 {
 	if (window->map[y][x + 1] == window->map[window->playery][window->playerx])
 		game_over(window);
-	if (window->map[y][x + 1] == '0' && window->map[y][x + 1] != window->map[window->exity][window->exitx])
+	if (window->map[y][x + 1] == '0' \
+	&& window->map[y][x + 1] != window->map[window->exity][window->exitx])
 	{
 		window->map[y][x] = '0';
 		window->map[y][x + 1] = 'N';
@@ -32,7 +33,8 @@ void	enemy_moved(t_data *window, int y, int x)
 {
 	if (window->map[y][x + 1] == window->map[window->playery][window->playerx])
 		game_over(window);
-	if (window->map[y + 1][x] == '0' && window->map[y + 1][x] != window->map[window->exity][window->exitx])
+	if (window->map[y + 1][x] == '0' \
+	&& window->map[y + 1][x] != window->map[window->exity][window->exitx])
 	{
 		window->map[y][x] = '0';
 		window->map[y + 1][x] = 'N';
@@ -47,7 +49,8 @@ void	enemy_movel(t_data *window, int y, int x)
 {
 	if (window->map[y][x + 1] == window->map[window->playery][window->playerx])
 		game_over(window);
-	if (window->map[y][x - 1] == '0' && window->map[y][x - 1] != window->map[window->exity][window->exitx])
+	if (window->map[y][x - 1] == '0' \
+	&& window->map[y][x - 1] != window->map[window->exity][window->exitx])
 	{
 		window->map[y][x] = '0';
 		window->map[y][x - 1] = 'N';
@@ -63,7 +66,8 @@ void	enemy_moveu(t_data *window, int y, int x)
 {
 	if (window->map[y][x + 1] == window->map[window->playery][window->playerx])
 		game_over(window);
-	if (window->map[y - 1][x] == '0' && window->map[y - 1][x] != window->map[window->exity][window->exitx])
+	if (window->map[y - 1][x] == '0' \
+	&& window->map[y - 1][x] != window->map[window->exity][window->exitx])
 	{
 		window->map[y][x] = '0';
 		window->map[y - 1][x] = 'N';

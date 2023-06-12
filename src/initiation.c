@@ -6,12 +6,11 @@
 /*   By: seroy <seroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 13:05:30 by seroy             #+#    #+#             */
-/*   Updated: 2023/05/31 17:00:38 by seroy            ###   ########.fr       */
+/*   Updated: 2023/06/12 12:30:55 by seroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
 
 void	ft_init_struct(t_data *data)
 {
@@ -37,10 +36,9 @@ void	ft_init_struct(t_data *data)
 	data->time = 0;
 	data->cycle = 0;
 	data->game_state = 0;
-
 }
 
-void ft_init_pos(t_data *data)
+void	ft_init_pos(t_data *data)
 {
 	data->startpx = ft_strchr_x(data->map, 'P');
 	data->startpy = ft_strchr_y(data->map, 'P');
@@ -52,7 +50,7 @@ void ft_init_pos(t_data *data)
 }
 
 // Start mlx
-void ft_init_mlx(t_data *window, char **map)
+void	ft_init_mlx(t_data *window, char **map)
 {	
 	window->w = ft_strlen(map[0]) - 1;
 	window->h = ft_height(map);
@@ -61,7 +59,7 @@ void ft_init_mlx(t_data *window, char **map)
 	window->mlx = mlx_init(window->w * 64, window->h * 64, "So long", true);
 }
 
-void    ft_init_game(t_data *data)
+void	ft_init_game(t_data *data)
 {
-    ft_init_struct(data);
+	ft_init_struct(data);
 }

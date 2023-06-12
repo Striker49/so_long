@@ -1,21 +1,21 @@
-// /* ************************************************************************** */
-// /*                                                                            */
-// /*                                                        :::      ::::::::   */
-// /*   main.c                                             :+:      :+:    :+:   */
-// /*                                                    +:+ +:+         +:+     */
-// /*   By: seroy <seroy@student.42.fr>                +#+  +:+       +#+        */
-// /*                                                +#+#+#+#+#+   +#+           */
-// /*   Created: 2023/03/15 14:53:09 by seroy             #+#    #+#             */
-// /*   Updated: 2023/03/28 13:18:57 by seroy            ###   ########.fr       */
-// /*                                                                            */
-// /* ************************************************************************** */
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seroy <seroy@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/12 15:02:53 by seroy             #+#    #+#             */
+/*   Updated: 2023/06/12 15:04:49 by seroy            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "so_long.h"
 
 void	ft_map_format(int argc, char **argv)
 {
-	int 	i;
-	int 	j;
+	int		i;
+	int		j;
 	int		ext;
 	char	*s;
 
@@ -32,7 +32,7 @@ void	ft_map_format(int argc, char **argv)
 
 int	ft_create_map(char **argv, t_data *create, int i)
 {
-	int fd;
+	int	fd;
 
 	fd = open(argv[1], O_RDONLY);
 	create->map = ft_calloc(i + 1, sizeof(*create->map));
@@ -43,7 +43,7 @@ int	ft_create_map(char **argv, t_data *create, int i)
 	{
 		create->map[i] = get_next_line(fd);
 		if (create->map[i] == NULL)
-			break;
+			break ;
 		i++;
 	}
 	return (0);
@@ -57,11 +57,11 @@ int	ft_read_map(t_data *create, int argc, char **argv)
 
 	i = 0;
 	fd = open(argv[1], O_RDONLY);
-	while(fd)
+	while (fd)
 	{
 		rd = get_next_line(fd);
 		if (rd == NULL)
-			break;
+			break ;
 		i++;
 		free(rd);
 	}
@@ -72,9 +72,9 @@ int	ft_read_map(t_data *create, int argc, char **argv)
 
 char	*ft_put_string(t_data *window)
 {
-	char *c;
-	char *m;
-	char *t;
+	char	*c;
+	char	*m;
+	char	*t;
 
 	c = ft_strjoin("Brains left:", ft_itoa(window->collectible));
 	m = ft_strjoin("					Moves:", ft_itoa(window->moves));
@@ -90,7 +90,7 @@ void	ft_put_info(t_data *window)
 
 int	main(int argc, char**argv)
 {
-	t_data *window;
+	t_data	*window;
 
 	window = (t_data *)ft_calloc(1, sizeof(t_data));
 	if (!window)

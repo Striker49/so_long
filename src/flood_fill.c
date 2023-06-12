@@ -6,7 +6,7 @@
 /*   By: seroy <seroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 13:08:56 by seroy             #+#    #+#             */
-/*   Updated: 2023/05/31 13:11:43 by seroy            ###   ########.fr       */
+/*   Updated: 2023/06/12 12:16:55 by seroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 //Copy map
 
-char    **ft_copy_map(char **map)
+char	**ft_copy_map(char **map)
 {
 	int		i;
 	int		ilen;
@@ -39,8 +39,8 @@ char    **ft_copy_map(char **map)
 
 int	flood_fill(char **map, int y_pos, int x_pos, int N)
 {
-	static int count;
-	static int exit;
+	static int	count;
+	static int	exit;
 
 	if (map[y_pos][x_pos] == '1' || map[y_pos][x_pos] == N)
 		return (0);
@@ -53,7 +53,6 @@ int	flood_fill(char **map, int y_pos, int x_pos, int N)
 	flood_fill(map, y_pos + 1, x_pos, N);
 	flood_fill(map, y_pos, x_pos - 1, N);
 	flood_fill(map, y_pos, x_pos + 1, N);
-
 	if (exit != 1)
 	{
 		return (0);
@@ -63,14 +62,14 @@ int	flood_fill(char **map, int y_pos, int x_pos, int N)
 
 //Check if valid path
 
-int ft_path(char **map, t_data *path)
+int	ft_path(char **map, t_data *path)
 {
 	char	**map2;
 	int		x_pos;
 	int		y_pos;
-	int		N;
+	int		n;
 
-	N = '+';
+	n = '+';
 	x_pos = ft_strchr_x(map, 'P');
 	path->startpx = x_pos;
 	y_pos = ft_strchr_y(map, 'P');

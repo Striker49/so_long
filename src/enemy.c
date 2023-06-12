@@ -6,7 +6,7 @@
 /*   By: seroy <seroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 14:11:34 by seroy             #+#    #+#             */
-/*   Updated: 2023/05/31 15:49:04 by seroy            ###   ########.fr       */
+/*   Updated: 2023/06/12 12:13:59 by seroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,11 @@
 
 void	enemy_move(t_data *window)
 {
-	int x;
+	int	x;
 	int	y;
 
 	x = window->enemyx;
 	y = window->enemyy;
-
 	if (window->time == 25)
 		window->cycle += 1;
 	if (window->cycle == 2)
@@ -58,7 +57,7 @@ void	enemy_coord(t_data *window, int y, int x)
 	}	
 }
 
-void    ft_enemy_spawn(t_data *window)
+void	ft_enemy_spawn(t_data *window)
 {
 	int	x;
 	int	y;
@@ -66,7 +65,7 @@ void    ft_enemy_spawn(t_data *window)
 	if (window->h <= 3)
 	{
 		window->enemy = 0;
-		return;
+		return ;
 	}
 	x = window->exitx;
 	y = window->exity;
@@ -74,5 +73,4 @@ void    ft_enemy_spawn(t_data *window)
 	window->enemyy = y;
 	enemy_coord(window, y, x);
 	window->enemy = 1;
-
 }

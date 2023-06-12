@@ -26,6 +26,7 @@ typedef struct s_image
 	mlx_image_t* 	img_collec;
 	mlx_image_t* 	img_exit;
 	mlx_image_t* 	img_game_over;
+	mlx_image_t* 	img_game_over2;
 
 	mlx_image_t* 	img_player;
 	mlx_image_t* 	img_player2;

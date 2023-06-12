@@ -6,7 +6,7 @@
 /*   By: seroy <seroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:49:57 by seroy             #+#    #+#             */
-/*   Updated: 2023/05/23 15:43:56 by seroy            ###   ########.fr       */
+/*   Updated: 2023/06/12 15:12:35 by seroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_strchr_map(char **s, int c)
 	while (s[i])
 	{
 		j = 0;
-		while(s[i][j])
+		while (s[i][j])
 		{	
 			if (c == s[i][j])
 				count++;
@@ -49,10 +49,10 @@ int	ft_strchr_x(char **s, int c)
 	while (s[i])
 	{
 		j = 0;
-		while(s[i][j])
+		while (s[i][j])
 		{	
 			if (c == s[i][j])
-				return(j);
+				return (j);
 			j++;
 		}
 		i++;
@@ -74,10 +74,10 @@ int	ft_strchr_y(char **s, int c)
 	while (s[i])
 	{
 		j = 0;
-		while(s[i][j])
+		while (s[i][j])
 		{	
 			if (c == s[i][j])
-				return(i);
+				return (i);
 			j++;
 		}
 		i++;
@@ -85,7 +85,7 @@ int	ft_strchr_y(char **s, int c)
 	return (0);
 }
 
-int		ft_height(char **map)
+int	ft_height(char **map)
 {
 	int	i;
 
@@ -95,8 +95,7 @@ int		ft_height(char **map)
 	return (i);
 }
 
-
-int	errmessage(int	a)
+int	errmessage(int a)
 {
 	if (a == 1)
 		printf("Error\nWrong number of objects");

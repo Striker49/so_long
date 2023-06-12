@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seroy <seroy@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/12 15:05:24 by seroy             #+#    #+#             */
+/*   Updated: 2023/06/12 15:07:28 by seroy            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 int	ft_valid_obj(char **map)
 {
-	int i;
+	int	i;
 	int	j;
 
 	i = 0;
@@ -22,12 +34,11 @@ int	ft_valid_obj(char **map)
 		i++;
 	}
 	return (1);
-
 }
 
 //Check if the map has an exit, a collectible and a start
 
-int ft_ecp(char	**map, t_data *obj)
+int	ft_ecp(char	**map, t_data *obj)
 {
 	if (ft_strchr_map(map, 'E') != 1)
 		return (0);
@@ -38,18 +49,18 @@ int ft_ecp(char	**map, t_data *obj)
 	if (ft_strchr_map(map, 'P') != 1)
 		return (0);
 	obj->start = 1;
-	// if (ft_valid_obj(map) != 1)
-	// 	return (0);
+	if (ft_valid_obj(map) != 1)
+		return (0);
 	return (1);
 }
 
 //Check if the map rectangular
 
-int    is_rectangular(char **map)
+int	is_rectangular(char **map)
 {
 	int	i;
 	int	j;
-	int len;
+	int	len;
 
 	len = (int)ft_strlen(map[0]);
 	i = 0;
@@ -67,12 +78,12 @@ int    is_rectangular(char **map)
 
 //Check if the map is surrounded by walls
 
-int ft_walls(char **map)
+int	ft_walls(char **map)
 {
-	int i;
-	int j;
-	int ilen;
-	int jlen;
+	int	i;
+	int	j;
+	int	ilen;
+	int	jlen;
 
 	i = 0;
 	ilen = ft_height(map);
@@ -96,9 +107,9 @@ int ft_walls(char **map)
 	return (1);
 }
 
-int ft_valid(char **map)
+int	ft_valid(char **map)
 {
-	t_data ver;
+	t_data	ver;
 
 	if (!ft_ecp(map, &ver))
 		errmessage(1);

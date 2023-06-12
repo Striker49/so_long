@@ -6,7 +6,7 @@
 /*   By: seroy <seroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 13:40:29 by seroy             #+#    #+#             */
-/*   Updated: 2023/05/31 15:50:25 by seroy            ###   ########.fr       */
+/*   Updated: 2023/06/12 12:20:25 by seroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_free_map(char **s)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (s)
@@ -26,17 +26,17 @@ void	ft_free_map(char **s)
 		}
 		free(s);
 	}
-	return;
+	return ;
 }
 
-void    ft_free_struct(t_data *data)
+void	ft_free_struct(t_data *data)
 {
-    free(data);
+	free(data);
 }
 
-void    ft_free_all(t_data *data)
+void	ft_free_all(t_data *data)
 {
-    ft_free_struct(data);
+	ft_free_struct(data);
 }
 
 //Delete image2
@@ -57,6 +57,5 @@ void	ft_delete2(t_data *window)
 	mlx_delete_image(window->mlx, window->image2.img_enemyL);
 	mlx_delete_image(window->mlx, window->image2.img_enemyL2);
 	mlx_delete_image(window->mlx, window->image2.img_enemyL3);
-
 	mlx_delete_image(window->mlx, window->image2.img_exit);
 }
