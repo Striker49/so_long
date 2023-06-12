@@ -6,7 +6,7 @@
 /*   By: seroy <seroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 15:02:53 by seroy             #+#    #+#             */
-/*   Updated: 2023/06/12 15:04:49 by seroy            ###   ########.fr       */
+/*   Updated: 2023/06/12 16:37:03 by seroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	ft_map_format(int argc, char **argv)
 {
 	int		i;
-	int		j;
 	int		ext;
 	char	*s;
 
@@ -23,10 +22,9 @@ void	ft_map_format(int argc, char **argv)
 		errmessage(8);
 	if (argc > 2)
 		errmessage(9);
-	i = 0;
-	j = 0;
 	s = ".ber";
-	if (ft_strnstr(argv[1], s, 100) == 0)
+	i = ft_strlen(argv[1]);
+	if (ft_strncmp(argv[1] + (i - 4), s, 4) != 0)
 		errmessage(5);
 }
 

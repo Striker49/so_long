@@ -6,7 +6,7 @@
 /*   By: seroy <seroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 13:08:56 by seroy             #+#    #+#             */
-/*   Updated: 2023/06/12 12:16:55 by seroy            ###   ########.fr       */
+/*   Updated: 2023/06/12 16:07:45 by seroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,22 +37,22 @@ char	**ft_copy_map(char **map)
 	return (map2);
 }
 
-int	flood_fill(char **map, int y_pos, int x_pos, int N)
+int	flood_fill(char **map, int y_pos, int x_pos, int n)
 {
 	static int	count;
 	static int	exit;
 
-	if (map[y_pos][x_pos] == '1' || map[y_pos][x_pos] == N)
+	if (map[y_pos][x_pos] == '1' || map[y_pos][x_pos] == 'N')
 		return (0);
 	if (map[y_pos][x_pos] == 'C')
 		count++;
 	if (map[y_pos][x_pos] == 'E')
 		exit = 1;
-	map[y_pos][x_pos] = N;
-	flood_fill(map, y_pos - 1, x_pos, N);
-	flood_fill(map, y_pos + 1, x_pos, N);
-	flood_fill(map, y_pos, x_pos - 1, N);
-	flood_fill(map, y_pos, x_pos + 1, N);
+	map[y_pos][x_pos] = 'N';
+	flood_fill(map, y_pos - 1, x_pos, n);
+	flood_fill(map, y_pos + 1, x_pos, n);
+	flood_fill(map, y_pos, x_pos - 1, n);
+	flood_fill(map, y_pos, x_pos + 1, n);
 	if (exit != 1)
 	{
 		return (0);
@@ -77,7 +77,7 @@ int	ft_path(char **map, t_data *path)
 	map2 = ft_copy_map(map);
 	if (!map2)
 		return (0);
-	if (path->collectible != flood_fill(map2, y_pos, x_pos, N))
+	if (path->collectible != flood_fill(map2, y_pos, x_pos, n))
 		return (0);
 	free(map2);
 	return (1);
