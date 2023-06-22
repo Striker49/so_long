@@ -6,7 +6,7 @@
 /*   By: seroy <seroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 13:02:47 by seroy             #+#    #+#             */
-/*   Updated: 2023/06/12 12:36:07 by seroy            ###   ########.fr       */
+/*   Updated: 2023/06/21 18:07:53 by seroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	ft_conv_texture(t_data *window)
 	idle_player(window);
 	idle_enemy(window);
 	window->image.img_exit = \
-	mlx_texture_to_image(window->mlx, window->image.texture_exit);
+	mlx_texture_to_image(window->mlx, window->image.texture_exit);	
 }
 
 void	ft_load_player_texture(t_data *data)

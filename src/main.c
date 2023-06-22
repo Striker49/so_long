@@ -6,7 +6,7 @@
 /*   By: seroy <seroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 15:02:53 by seroy             #+#    #+#             */
-/*   Updated: 2023/06/12 16:37:03 by seroy            ###   ########.fr       */
+/*   Updated: 2023/06/21 18:21:02 by seroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,46 +68,23 @@ int	ft_read_map(t_data *create, int argc, char **argv)
 	return (0);
 }
 
-char	*ft_put_string(t_data *window)
-{
-	char	*c;
-	char	*m;
-	char	*t;
-
-	c = ft_strjoin("Brains left:", ft_itoa(window->collectible));
-	m = ft_strjoin("					Moves:", ft_itoa(window->moves));
-	t = ft_strjoin(c, m);
-	return (t);
-}
-
-void	ft_put_info(t_data *window)
-{
-	mlx_put_string(window->mlx, ft_put_string(window), 16, 16);
-	mlx_put_string(window->mlx, ft_itoa(window->collectible), 16, 32);
-}
-
 int	main(int argc, char**argv)
 {
-	t_data	*window;
+	t_data	window;
 
-	window = (t_data *)ft_calloc(1, sizeof(t_data));
-	if (!window)
-	{
-		free(window);
-		return (0);
-	}
 	ft_map_format(argc, argv);
-	ft_init_struct(window);
-	ft_read_map(window, argc, argv);
-	ft_valid(window->map);
-	ft_init_pos(window);
-	ft_init_mlx(window, window->map);
-	ft_enemy_spawn(window);
-	ft_load_texture(window);
-	ft_conv_texture(window);
-	mlx_loop_hook(window->mlx, &ft_disp_img, window);
-	mlx_key_hook(window->mlx, &my_keyhook, window);
-	mlx_loop(window->mlx);
-	mlx_terminate(window->mlx);
-	ft_free_all(window);
+	ft_init_struct(&window);
+	ft_read_map(&window, argc, argv);
+	ft_valid(window.map);
+	ft_init_pos(&window);
+	ft_init_mlx(&window, window.map);
+	ft_enemy_spawn(&window);
+	ft_load_texture(&window);
+	ft_conv_texture(&window);
+	mlx_loop_hook(window.mlx, &ft_disp_img, &window);
+	mlx_key_hook(window.mlx, &my_keyhook, &window);
+	mlx_loop(window.mlx);
+	mlx_terminate(window.mlx);
+	ft_free_all(&window);
+	return (EXIT_SUCCESS);
 }

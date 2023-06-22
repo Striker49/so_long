@@ -12,13 +12,6 @@
 #  define PIXEL 64
 # endif
 
-typedef	struct s_position
-{
-	int x;
-	int y;
-
-} t_position;
-
 typedef struct s_image
 {
 	mlx_image_t* 	img_wall;
@@ -41,6 +34,9 @@ typedef struct s_image
 	mlx_image_t* 	img_enemyL;
 	mlx_image_t* 	img_enemyL2;
 	mlx_image_t* 	img_enemyL3;
+
+	mlx_image_t* 	str1;
+	mlx_image_t* 	str2;
 
 	mlx_texture_t* 	texture_wall;
 	mlx_texture_t* 	texture_floor;
@@ -80,22 +76,19 @@ typedef struct s_data
 	int				enemy;
 	int				enemyx;
 	int				enemyy;
+	int				playerw;
+	int				enemyw;
 	int				exitx;
 	int				exity;
 	int 			moves;
-	int				playerw;
-	int				enemyw;
 	int				time;
 	int				cycle;
 	int				game_state;
-	t_position		startp;
-	t_position		current;
+
 	t_image			image;
 	t_image			image2;
 
 	mlx_t* 			mlx;
-	mlx_instance_t	*player;
-
 }   t_data;
 
 int		ft_read_map(t_data *create, int argc, char **argv);
@@ -110,17 +103,14 @@ int		ft_strchr_y(char **s, int c);
 
 void	ft_init_mlx(t_data *window, char **map);
 void	ft_init_struct(t_data *data);
-void 	ft_init_pos(t_data *data);
 void	ft_load_texture(t_data *window);
 void	ft_conv_texture(t_data *window);
-void	ft_put_info(t_data *window);
 void	ft_disp_img(void *param);
 void 	my_keyhook(mlx_key_data_t keydata, void* param);
 void	ft_player_move(int a, t_data *data);
+void	ft_put_info(t_data *window);
 char	*ft_put_string(t_data *window);
 void	ft_render_map(void *param);
-void 	ft_img2(t_data *window);
-void	ft_load_player(t_data *window);
 void	idle_player(t_data *window);
 void 	idle_enemy(t_data *window);
 void	ft_load_player_texture(t_data *data);
@@ -136,10 +126,10 @@ void	enemy_moveu(t_data *window, int y, int x);
 
 void    game_over(void *param);
 void	ft_free_map(char **s);
+void	ft_delete(t_data *window);
 void	ft_delete2(t_data *window);
 void	ft_free_err(void);
 void    ft_free_all(t_data *data);
 
 int	errmessage(int a);
-int32_t ft_exit(void);
 #endif

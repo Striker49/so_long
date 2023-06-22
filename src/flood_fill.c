@@ -6,7 +6,7 @@
 /*   By: seroy <seroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 13:08:56 by seroy             #+#    #+#             */
-/*   Updated: 2023/06/12 16:07:45 by seroy            ###   ########.fr       */
+/*   Updated: 2023/06/19 17:49:37 by seroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	**ft_copy_map(char **map)
 	char	**map2;
 
 	i = 0;
-	ilen = ft_height(map) - 1;
+	ilen = ft_height(map);
 	map2 = ft_calloc((ilen + 1), sizeof(*map2));
 	if (!map2)
 	{
@@ -79,6 +79,6 @@ int	ft_path(char **map, t_data *path)
 		return (0);
 	if (path->collectible != flood_fill(map2, y_pos, x_pos, n))
 		return (0);
-	free(map2);
+	ft_free_map(map2);
 	return (1);
 }

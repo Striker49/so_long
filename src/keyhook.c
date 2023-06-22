@@ -6,7 +6,7 @@
 /*   By: seroy <seroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 12:58:51 by seroy             #+#    #+#             */
-/*   Updated: 2023/06/12 12:33:48 by seroy            ###   ########.fr       */
+/*   Updated: 2023/06/22 14:05:24 by seroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,10 @@ void	my_keyhook(mlx_key_data_t	keydata, void	*param)
 	&& keydata.action == MLX_PRESS)
 		ft_player_move(4, change);
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
-		exit(0);
+	{
+		// ft_delete(change);
+		// ft_delete2(change);
+		ft_free_all(change);
+		exit (0);	
+	}
 }

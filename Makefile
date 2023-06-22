@@ -35,7 +35,7 @@ SRCDIR = src
 LIBFT_A = libft.a
 LIBFTDIR = libft
 LIBFT = $(addprefix $(LIBFTDIR)/, $(LIBFT_A))
-SRC = parsing.c flood_fill.c utils.c main.c render_map.c player_move.c keyhook.c load_img.c initiation.c free.c idle_img.c enemy.c enemy_move.c game_over.c
+SRC = parsing.c flood_fill.c utils.c main.c render_map.c player_move.c keyhook.c load_img.c initiate.c free.c idle_img.c enemy.c enemy_move.c game_over.c putstring.c
 		
 VPATH = ${SRCDIR}
 
