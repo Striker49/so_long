@@ -6,7 +6,7 @@
 /*   By: seroy <seroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 13:02:47 by seroy             #+#    #+#             */
-/*   Updated: 2023/06/26 16:34:15 by seroy            ###   ########.fr       */
+/*   Updated: 2023/06/26 18:50:02 by seroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,8 @@ void	ft_load_texture(t_data *window)
 	window->image.texture_collec = mlx_load_png("./temp/sus.png");
 	ft_load_player_texture(window);
 	ft_load_enemy_texture(window);
-	window->image.texture_enemy = mlx_load_png("./temp/Bunny1_Idle_000.png");
-	window->image.texture_enemyL = mlx_load_png("./temp/BunnyL.png");
 	window->image.texture_exit = mlx_load_png("./temp/Gold1.png");
+	window->image.texture_game_over = mlx_load_png("./temp/Black_box.png");
 }
 
 // Convert texture to a displayable image

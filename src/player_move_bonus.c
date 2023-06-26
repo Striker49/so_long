@@ -6,7 +6,7 @@
 /*   By: seroy <seroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 16:15:15 by seroy             #+#    #+#             */
-/*   Updated: 2023/06/26 16:28:05 by seroy            ###   ########.fr       */
+/*   Updated: 2023/06/26 18:50:48 by seroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,5 @@ void	ft_player_move(int a, t_data *data)
 		printf("%s%d%s", \
 		"Congratulations!\nYou cleared the game in ", data->moves, " moves");
 		mlx_close_window(data->mlx);
-		ft_free_all(data);
-		exit (0);
 	}
 }

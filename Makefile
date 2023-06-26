@@ -22,7 +22,7 @@ LIBFT = libft
 #Command variables ------------------------
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 MK = mkdir -p
 RM = rm -rf
 USER = $(shell whoami)

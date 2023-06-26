@@ -6,7 +6,7 @@
 /*   By: seroy <seroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 12:58:51 by seroy             #+#    #+#             */
-/*   Updated: 2023/06/26 16:42:30 by seroy            ###   ########.fr       */
+/*   Updated: 2023/06/26 18:28:01 by seroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,6 @@ void	my_keyhook(mlx_key_data_t	keydata, void	*param)
 	if (keydata.key == MLX_KEY_ESCAPE || keydata.key == \
 		MLX_CURSOR_CROSSHAIR && keydata.action == MLX_PRESS)
 	{
-		exit (0);
+		mlx_close_window(data->mlx);
 	}
 }
