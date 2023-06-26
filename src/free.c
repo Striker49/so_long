@@ -6,7 +6,7 @@
 /*   By: seroy <seroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 13:40:29 by seroy             #+#    #+#             */
-/*   Updated: 2023/06/22 14:16:19 by seroy            ###   ########.fr       */
+/*   Updated: 2023/06/26 16:30:25 by seroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ void	ft_free_map(char **s)
 void	ft_free_all(t_data *data)
 {
 	ft_free_map(data->map);
-	mlx_delete_image(data->mlx, data->image.img_game_over2);
+	ft_delete(data);
+	ft_delete2(data);
 }
 
 //Delete image2
@@ -56,7 +57,6 @@ void	ft_delete2(t_data *window)
 	mlx_delete_image(window->mlx, window->image2.img_exit);
 	mlx_delete_image(window->mlx, window->image2.str1);
 	mlx_delete_image(window->mlx, window->image2.str2);
-	mlx_delete_image(window->mlx, window->image2.img_game_over2);
 }
 
 void	ft_delete(t_data *window)
@@ -79,5 +79,12 @@ void	ft_delete(t_data *window)
 	mlx_delete_image(window->mlx, window->image.img_exit);
 	mlx_delete_image(window->mlx, window->image.str1);
 	mlx_delete_image(window->mlx, window->image.str2);
-	mlx_delete_image(window->mlx, window->image2.img_game_over2);
+}
+
+void	close_game(void *param)
+{
+	t_data	*data;
+
+	data = param;
+	ft_free_all(data);
 }

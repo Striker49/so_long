@@ -36,6 +36,7 @@ LIBFT_A = libft.a
 LIBFTDIR = libft
 LIBFT = $(addprefix $(LIBFTDIR)/, $(LIBFT_A))
 SRC = parsing.c flood_fill.c utils.c main.c render_map.c player_move.c keyhook.c load_img.c initiate.c free.c idle_img.c enemy.c enemy_move.c game_over.c putstring.c
+SRCB = parsing.c flood_fill.c utils.c main.c render_map_bonus.c player_move_bonus.c keyhook.c load_img.c initiate.c free.c idle_img.c enemy.c enemy_move.c game_over.c putstring.c
 		
 VPATH = ${SRCDIR}
 
@@ -44,6 +45,7 @@ VPATH = ${SRCDIR}
 OBJDIR = obj
 
 OBJS = $(addprefix ${OBJDIR}/, ${SRC:%.c=%.o})
+OBJSB = $(addprefix ${OBJDIR}/, ${SRCB:%.c=%.o})
 
 ${OBJDIR}/%.o : %.c
 	${CC} ${FLAGS} -I${INCDIR} -Ilibft/inc -Imlx42 -c $< -o $@ 
@@ -56,6 +58,10 @@ $(NAME): $(OBJDIR) $(OBJS)
 
 $(OBJDIR):
 	$(MK) $(OBJDIR)
+
+bonus: $(OBJDIR) $(OBJSB)
+	make -C $(LIBFTDIR)
+	$(CC) ${FLAGS} $(MLX42) $(OBJSB) -L$(dir $(LIBFT)) -lft -o $(NAME)
 
 clean:
 	$(RM) $(OBJDIR)

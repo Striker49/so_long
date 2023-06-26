@@ -6,7 +6,7 @@
 /*   By: seroy <seroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 13:17:13 by seroy             #+#    #+#             */
-/*   Updated: 2023/06/21 15:38:17 by seroy            ###   ########.fr       */
+/*   Updated: 2023/06/26 16:31:31 by seroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	idle_playerl(t_data *window)
 		window->image.img_player = \
 		mlx_texture_to_image(window->mlx, window->image.texture_playerL3);
 	if (window->time > 100)
-	window->time = 0;
+		window->time = 0;
 }
 
 void	idle_player(t_data *window)
@@ -59,7 +59,7 @@ void	idle_enemyl(t_data *window)
 		window->image.img_enemy = \
 		mlx_texture_to_image(window->mlx, window->image.texture_enemyL3);
 	if (window->time > 100)
-	window->time = 0;
+		window->time = 0;
 }
 
 void	idle_enemy(t_data *window)

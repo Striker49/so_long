@@ -6,7 +6,7 @@
 /*   By: seroy <seroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 13:05:30 by seroy             #+#    #+#             */
-/*   Updated: 2023/06/21 15:41:39 by seroy            ###   ########.fr       */
+/*   Updated: 2023/06/26 16:32:07 by seroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	ft_init_pos(t_data *data)
 
 // Start mlx
 void	ft_init_mlx(t_data *window, char **map)
-{	
+{
 	window->w = ft_strlen(map[0]) - 1;
 	window->h = ft_height(map);
 	window->mlx = mlx_init(window->w * 64, window->h * 64, "So long", true);

@@ -6,7 +6,7 @@
 /*   By: seroy <seroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 14:11:34 by seroy             #+#    #+#             */
-/*   Updated: 2023/06/12 12:13:59 by seroy            ###   ########.fr       */
+/*   Updated: 2023/06/26 16:29:09 by seroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,12 @@ void	enemy_coord(t_data *window, int y, int x)
 	{
 		window->map[y + 1][x] = 'N';
 		window->enemyy = y + 1;
-	}	
+	}
 	else if (window->map[y - 1][x] != '1' && window->map[y][x + 1] != 'C')
 	{
 		window->map[y - 1][x] = 'N';
 		window->enemyy = y - 1;
-	}	
+	}
 }
 
 void	ft_enemy_spawn(t_data *window)

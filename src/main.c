@@ -6,7 +6,7 @@
 /*   By: seroy <seroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 15:02:53 by seroy             #+#    #+#             */
-/*   Updated: 2023/06/21 18:21:02 by seroy            ###   ########.fr       */
+/*   Updated: 2023/06/26 16:33:49 by seroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int	main(int argc, char**argv)
 	ft_conv_texture(&window);
 	mlx_loop_hook(window.mlx, &ft_disp_img, &window);
 	mlx_key_hook(window.mlx, &my_keyhook, &window);
+	mlx_close_hook(window.mlx, &close_game, &window);
 	mlx_loop(window.mlx);
 	mlx_terminate(window.mlx);
 	ft_free_all(&window);

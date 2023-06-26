@@ -6,7 +6,7 @@
 /*   By: seroy <seroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 13:34:36 by seroy             #+#    #+#             */
-/*   Updated: 2023/06/21 18:14:43 by seroy            ###   ########.fr       */
+/*   Updated: 2023/06/26 16:30:49 by seroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,16 @@ void	game_over(void *param)
 
 	window = param;
 	if (window->game_state == 0)
+	{
 		printf("%s", "Game Over..!");
+		window->image.texture_game_over = mlx_load_png("./temp/Black_box.png");
+	}
 	window->game_state = 1;
-	window->image.texture_game_over = mlx_load_png("./temp/Black_box.png");
+	mlx_delete_image(window->mlx, window->image2.img_game_over2);
+	window->image.img_game_over2 = mlx_put_string(window->mlx, "Game Over..!", \
+	window->w / 2 * 64, window->h / 2 * 64);
 	window->image.img_game_over = \
 	mlx_texture_to_image(window->mlx, window->image.texture_game_over);
-	put_game_over(window);
+	window->image.img_game_over2 = window->image.img_game_over2;
 	mlx_image_to_window(window->mlx, window->image.img_game_over, 0, 0);
 }

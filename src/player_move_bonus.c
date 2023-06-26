@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player_move.c                                      :+:      :+:    :+:   */
+/*   player_move_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seroy <seroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/12 12:51:25 by seroy             #+#    #+#             */
-/*   Updated: 2023/06/26 16:25:23 by seroy            ###   ########.fr       */
+/*   Created: 2023/06/26 16:15:15 by seroy             #+#    #+#             */
+/*   Updated: 2023/06/26 16:28:05 by seroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	move_up(t_data *data)
 {
 	if (data->map[data->playery - 1][data->playerx] != '1')
 	{
-		ft_printmove(data);
 		if (data->map[data->playery - 1][data->playerx] == 'N')
 		{
 			game_over(data);
@@ -34,7 +33,6 @@ void	move_down(t_data *data)
 {
 	if (data->map[data->playery + 1][data->playerx] != '1')
 	{
-		ft_printmove(data);
 		if (data->map[data->playery + 1][data->playerx] == 'N')
 		{
 			game_over(data);
@@ -53,7 +51,6 @@ void	move_left(t_data *data)
 	data->playerw = 1;
 	if (data->map[data->playery][data->playerx - 1] != '1')
 	{
-		ft_printmove(data);
 		if (data->map[data->playery][data->playerx - 1] == 'N')
 		{
 			game_over(data);
@@ -72,7 +69,6 @@ void	move_right(t_data *data)
 	data->playerw = 0;
 	if (data->map[data->playery][data->playerx + 1] != '1')
 	{
-		ft_printmove(data);
 		if (data->map[data->playery][data->playerx + 1] == 'N')
 			game_over(data);
 		if (data->map[data->playery][data->playerx + 1] == 'C')

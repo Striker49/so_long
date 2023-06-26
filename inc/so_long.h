@@ -110,6 +110,7 @@ void 	my_keyhook(mlx_key_data_t keydata, void* param);
 void	ft_player_move(int a, t_data *data);
 void	ft_put_info(t_data *window);
 char	*ft_put_string(t_data *window);
+void	ft_printmove(t_data *window);
 void	ft_render_map(void *param);
 void	idle_player(t_data *window);
 void 	idle_enemy(t_data *window);
@@ -130,6 +131,7 @@ void	ft_delete(t_data *window);
 void	ft_delete2(t_data *window);
 void	ft_free_err(void);
 void    ft_free_all(t_data *data);
+void	close_game(void *param);
 
 int	errmessage(int a);
 #endif

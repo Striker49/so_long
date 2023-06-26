@@ -6,7 +6,7 @@
 /*   By: seroy <seroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:49:57 by seroy             #+#    #+#             */
-/*   Updated: 2023/06/12 15:12:35 by seroy            ###   ########.fr       */
+/*   Updated: 2023/06/26 16:35:22 by seroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_strchr_map(char **s, int c)
 	{
 		j = 0;
 		while (s[i][j])
-		{	
+		{
 			if (c == s[i][j])
 				count++;
 			j++;
@@ -50,7 +50,7 @@ int	ft_strchr_x(char **s, int c)
 	{
 		j = 0;
 		while (s[i][j])
-		{	
+		{
 			if (c == s[i][j])
 				return (j);
 			j++;
@@ -75,7 +75,7 @@ int	ft_strchr_y(char **s, int c)
 	{
 		j = 0;
 		while (s[i][j])
-		{	
+		{
 			if (c == s[i][j])
 				return (i);
 			j++;
