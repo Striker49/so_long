@@ -130,6 +130,10 @@ void	ft_free_map(char **s);
 void	ft_delete(t_data *window);
 void	ft_delete2(t_data *window);
 void	ft_free_err(void);
+void	ft_errexit(int fd, t_data *data);
+void	ft_errexit2(int fd, char *rd, t_data *data);
+void	ft_errexit3(char *str, t_data *data);
+void	ft_errexit4(char *str, char *str2, t_data *data);
 void    ft_free_all(t_data *data);
 void	close_game(void *param);
 
